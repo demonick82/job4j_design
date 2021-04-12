@@ -18,11 +18,10 @@ public class EvenNumbersIterator implements Iterator<Integer> {
 
     @Override
     public Integer next() {
-        int rsl = 0;
+        int rsl;
         if (!hasNext()) {
             throw new NoSuchElementException();
-        }
-        if (isCheck(data, point)) {
+        } else {
             rsl = data[point];
             point++;
         }
