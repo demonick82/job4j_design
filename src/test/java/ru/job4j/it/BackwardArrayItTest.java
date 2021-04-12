@@ -13,7 +13,7 @@ public class BackwardArrayItTest {
     @Test
     public void whenMultiCallhasNextThenTrue() {
         BackwardArrayIt it = new BackwardArrayIt(
-                new int[] {1, 2, 3}
+                new int[]{1, 2, 3}
         );
         assertThat(it.hasNext(), is(true));
         assertThat(it.hasNext(), is(true));
@@ -22,17 +22,17 @@ public class BackwardArrayItTest {
     @Test
     public void whenReadSequence() {
         BackwardArrayIt it = new BackwardArrayIt(
-                new int[] {1, 2, 3}
+                new int[]{1, 2, 3}
         );
-       assertThat(it.next(), is(3));
-       assertThat(it.next(), is(2));
+        assertThat(it.next(), is(3));
+        assertThat(it.next(), is(2));
         assertThat(it.next(), is(1));
     }
 
     @Test
     public void whenReadSequence2() {
         BackwardArrayIt it = new BackwardArrayIt(
-                new int[] {2, 5, 7}
+                new int[]{2, 5, 7}
         );
         assertThat(it.next(), is(7));
         assertThat(it.next(), is(5));
@@ -42,7 +42,7 @@ public class BackwardArrayItTest {
     @Test(expected = NoSuchElementException.class)
     public void whenNextFromEmpty() {
         BackwardArrayIt it = new BackwardArrayIt(
-                new int[] {}
+                new int[]{}
         );
         it.next();
     }
