@@ -16,6 +16,7 @@ public class SimpleArray<T> implements Iterable<T> {
         Objects.checkIndex(index, size);
         return (T) container[index];
 
+
     }
 
     public void add(T model) {
