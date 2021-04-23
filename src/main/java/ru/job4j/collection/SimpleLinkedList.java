@@ -1,6 +1,9 @@
 package ru.job4j.collection;
 
-import java.util.*;
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class SimpleLinkedList<E> implements List<E> {
     private Node<E> first;
