@@ -55,7 +55,6 @@ public class ListUtils {
             if (elements.contains(i.next())) {
                 i.remove();
             }
-
         }
     }
 }
