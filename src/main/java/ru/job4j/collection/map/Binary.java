@@ -1,5 +1,8 @@
 package ru.job4j.collection.map;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Binary {
     public static String binary(int num) {
         StringBuilder sb = new StringBuilder();
@@ -12,8 +15,9 @@ public class Binary {
     }
 
     public static void main(String[] args) {
-       System.out.println(Binary.binary(123124));
-        System.out.println(Binary.binary(123>>>4));
+        System.out.println(Binary.binary(123124));
+        System.out.println(Binary.binary(123 >>> 4));
+        Map<String, String> map = new HashMap<>();
 
     }
 }
