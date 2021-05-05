@@ -24,7 +24,7 @@ public class LogFilter {
         return list;
     }
 
-    public static boolean findMatcher(String pattern, String line) {
+    private static boolean findMatcher(String pattern, String line) {
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(line);
         return m.find();
