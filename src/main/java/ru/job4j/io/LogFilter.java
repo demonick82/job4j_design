@@ -1,8 +1,6 @@
 package ru.job4j.io;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -24,6 +22,23 @@ public class LogFilter {
         return list;
     }
 
+    public static void save(List<String> log, String file) {
+        try (PrintWriter writer = new PrintWriter(
+                new BufferedOutputStream(
+                        new FileOutputStream(file)
+
+                ))) {
+            for (String s : log) {
+                writer.write(s);
+                writer.write(System.lineSeparator());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private static boolean findMatcher(String pattern, String line) {
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(line);
@@ -32,7 +47,7 @@ public class LogFilter {
 
     public static void main(String[] args) {
         List<String> log = filter("log.txt");
-        log.forEach(System.out::println);
+        save(log, "404.txt");
     }
 }
 
