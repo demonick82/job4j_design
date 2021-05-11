@@ -27,17 +27,14 @@ public class LogFilter {
         try (PrintWriter writer = new PrintWriter(
                 new BufferedOutputStream(
                         new FileOutputStream(file)
-
                 ))) {
             for (String s : log) {
-                writer.write(s);
-                writer.write(System.lineSeparator());
+                writer.println(s);
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private static boolean findMatcher(Pattern p, String line) {
