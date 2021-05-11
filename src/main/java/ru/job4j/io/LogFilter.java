@@ -7,12 +7,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LogFilter {
+    private static Pattern p = Pattern.compile("404.\\d+");
+
     public static List<String> filter(String file) {
         List<String> list = new ArrayList<>();
-        String regex = "404.\\d+";
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-                if (findMatcher(regex, line)) {
+                if (findMatcher(p, line)) {
                     list.add(line);
                 }
             }
@@ -39,8 +40,7 @@ public class LogFilter {
 
     }
 
-    private static boolean findMatcher(String pattern, String line) {
-        Pattern p = Pattern.compile(pattern);
+    private static boolean findMatcher(Pattern p, String line) {
         Matcher m = p.matcher(line);
         return m.find();
     }
