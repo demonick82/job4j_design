@@ -2,6 +2,7 @@ package ru.job4j.collection.tree;
 
 import java.util.*;
 import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 
 public class SimpleTree<E> implements Tree<E> {
     private final Node<E> root;
@@ -14,7 +15,7 @@ public class SimpleTree<E> implements Tree<E> {
     public boolean add(E parent, E child) {
         boolean rsl = false;
         Optional<Node<E>> parentNode = findBy(parent);
-        if (parentNode.isPresent() || findBy(child).isEmpty()) {
+        if (parentNode.isPresent() && findBy(child).isEmpty()) {
             parentNode.get().children.add(new Node<>(child));
             rsl = true;
         }
@@ -23,23 +24,23 @@ public class SimpleTree<E> implements Tree<E> {
 
     @Override
     public Optional<Node<E>> findBy(E value) {
-        BiPredicate<Node<E>, E> pred = (node, val) -> node.value.equals(val);
-        return findByPredicate(pred, value);
+        Predicate<Node<E>> pred = node -> node.value.equals(value);
+        return findByPredicate(pred);
     }
 
     @Override
     public boolean isBinary() {
-        BiPredicate<Node<E>, E> pred = (node, val) -> node.children.size() > 2;
-        return findByPredicate(pred, null).isEmpty();
+        Predicate<Node<E>> pred = node -> node.children.size() > 2;
+        return findByPredicate(pred).isEmpty();
     }
 
-    private Optional<Node<E>> findByPredicate(BiPredicate<Node<E>, E> pred, E value) {
+    private Optional<Node<E>> findByPredicate(Predicate<Node<E>> pred) {
         Optional<Node<E>> rsl = Optional.empty();
         Queue<Node<E>> data = new LinkedList<>();
         data.offer(this.root);
         while (!data.isEmpty()) {
             Node<E> el = data.poll();
-            if (pred.test(el, value)) {
+            if (pred.test(el)) {
                 rsl = Optional.of(el);
                 break;
             }
