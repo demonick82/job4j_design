@@ -25,17 +25,17 @@ public class Analysis {
                 }
                 status = Integer.parseInt(splitLine[0]);
                 date = splitLine[1];
-                if ((status == 500 || status == 400) && lastStatus != 500) {
+                if ((status == 500 || status == 400) && lastStatus != 500 && lastStatus != 400) {
                     bugStart = date;
                     lastStatus = 500;
                 }
-                if ((status == 200 || status == 300) && (lastStatus == 500)) {
+                if ((status == 200 || status == 300) && (lastStatus == 500 || lastStatus == 400)) {
                     bugFinish = date;
                     serverStop.put(bugStart, bugFinish);
                     lastStatus = 200;
                 }
             }
-        }  catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

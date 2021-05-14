@@ -26,7 +26,7 @@ public class AnalysisTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        assertThat(builder.toString(), is("10:57:01;10:59:01\r\n11:01:02;11:02:02\r\n"));
+        assertThat(builder.toString(), is("10:57:01;10:59:01" + System.lineSeparator() + "11:01:02;11:02:02" + System.lineSeparator()));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -44,7 +44,7 @@ public class AnalysisTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        assertThat(builder.toString(), is("10:57:01;10:59:01\r\n11:01:02;11:02:02\r\n"));
+        assertThat(builder.toString(), is("10:57:01;10:59:01" + System.lineSeparator() + "11:01:02;11:02:02" + System.lineSeparator()));
     }
 
     @Rule
