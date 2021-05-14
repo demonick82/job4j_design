@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.NoSuchElementException;
 
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 public class ConfigTest {
@@ -18,12 +19,12 @@ public class ConfigTest {
 
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void whenPairWithComment() {
         String path = "./data/pair_with_comment.properties";
         Config config = new Config(path);
         config.load();
-        assertThat(config.value("hibernate.dialect"), is("org.hibernate.dialect.PostgreSQLDialect"));
+        assertNull(config.value("hibernate.dialect"));
     }
 
     @Test(expected = IllegalArgumentException.class)
