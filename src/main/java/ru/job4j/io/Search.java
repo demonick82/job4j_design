@@ -10,8 +10,16 @@ import java.util.function.Predicate;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-        Path start = Paths.get(".");
-        search(start, p -> p.toFile().getName().endsWith("java")).forEach(System.out::println);
+        if (args.length != 2) {
+            throw new IllegalArgumentException("Задайте параметрв поиска файлов: начальную директорию и расширение");
+        }
+        Path start = Paths.get(args[0]);
+        String pred = args[1];
+        if (!Files.exists(start)) {
+            throw new IllegalArgumentException("Выбранная директория не сущществует");
+        }
+
+        search(start, p -> p.toFile().getName().endsWith(pred)).forEach(System.out::println);
     }
 
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
