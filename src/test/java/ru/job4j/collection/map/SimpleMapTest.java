@@ -1,5 +1,7 @@
 package ru.job4j.collection.map;
+
 import org.junit.Test;
+
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
@@ -9,14 +11,14 @@ import static org.junit.Assert.*;
 public class SimpleMapTest {
     @Test
     public void whenAddInMap() {
-        SimpleMap<Integer,Integer> map = new SimpleMap<>();
+        SimpleMap<Integer, Integer> map = new SimpleMap<>();
         map.insert(1, 6);
         assertThat(map.get(1), is(6));
     }
 
     @Test
     public void whenAddInMapDuplicateKey() {
-        SimpleMap<Integer,Integer> map = new SimpleMap<>();
+        SimpleMap<Integer, Integer> map = new SimpleMap<>();
         map.insert(1, 6);
         map.insert(1, 7);
         assertThat(map.get(1), is(7));

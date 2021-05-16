@@ -53,6 +53,6 @@ public class ListUtilsTest {
         List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 2, 3, 6));
         List<Integer> elements = new ArrayList<>(Arrays.asList(0, 2));
         ListUtils.removeAll(input, elements);
-        assertThat(Arrays.asList(1,3,6), Is.is(input));
+        assertThat(Arrays.asList(1, 3, 6), Is.is(input));
     }
 }
