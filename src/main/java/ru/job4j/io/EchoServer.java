@@ -18,7 +18,7 @@ public class EchoServer {
                     String str;
                     while (!(str = in.readLine()).isEmpty()) {
                         System.out.println(str);
-                        if (str.contains("Bye")) {
+                        if (str.contains("=Bye ")) {
                             return;
                         }
                     }
