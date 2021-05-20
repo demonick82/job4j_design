@@ -14,6 +14,8 @@ public class ConsoleChat {
     private static final String STOP = "стоп";
     private static final String CONTINUE = "продолжить";
     private List<String> botAnswersList = new ArrayList<>();
+    private List<String> log = new ArrayList<>();
+
     private Random rnd = new Random();
     private boolean stopServer = false;
 
@@ -24,26 +26,26 @@ public class ConsoleChat {
     }
 
     public void run() {
-        List<String> log = new ArrayList<>();
         createList(botAnswers);
         Scanner s = new Scanner(System.in);
         String question;
         do {
             question = s.nextLine();
-            if (question.equals(STOP)) {
+            if (question.equalsIgnoreCase(STOP)) {
                 stopServer = true;
             }
             if (question.equals(CONTINUE)) {
                 stopServer = false;
             }
             log.add(question);
-            System.out.println(question);
             if (!stopServer && !question.equals(OUT)) {
-
                 log.add(botAnswersList.get(rnd.nextInt(botAnswersList.size())));
-                System.out.println(botAnswersList.get(rnd.nextInt(botAnswersList.size())));
             }
         } while (!question.equals(OUT));
+        fileWrite(log);
+    }
+
+    private void fileWrite(List<String> list) {
         try (PrintWriter out = new PrintWriter(path, Charset.forName("UTF-8"))) {
             log.forEach(out::println);
         } catch (FileNotFoundException e) {
