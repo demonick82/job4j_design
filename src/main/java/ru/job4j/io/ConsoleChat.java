@@ -31,7 +31,7 @@ public class ConsoleChat {
         String question;
         do {
             question = s.nextLine();
-            if (question.equalsIgnoreCase(STOP)) {
+            if (question.equals(STOP)) {
                 stopServer = true;
             }
             if (question.equals(CONTINUE)) {
