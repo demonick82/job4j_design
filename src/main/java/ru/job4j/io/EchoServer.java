@@ -35,13 +35,12 @@ public class EchoServer {
                         } else if (str.contains("=Exit ")) {
                             out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                             out.write("Server stop\r\n\r\n".getBytes());
-                            return;
+                            server.close();
                         } else if (m.find()) {
                             String answer = (m.group()).substring(1).trim();
                             out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                             out.write((answer + System.lineSeparator()).getBytes());
                         }
-                        throw new IOException();
                     }
                 }
             }
