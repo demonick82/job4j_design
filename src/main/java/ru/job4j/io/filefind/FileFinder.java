@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.util.List;
-import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 public class FileFinder {
     public static void main(String[] args) throws IOException {
@@ -17,22 +17,18 @@ public class FileFinder {
         String searchType = ArgsName.of(args).get("t");
         String rslPath = ArgsName.of(args).get("o");
         Path start = Path.of(pathSearch);
-        List<Path> listPaths = Search.search(start, choosePredicate(searchType, fileName));
+        List<Path> listPaths = Search.searchRegex(start, choosePattern(searchType, fileName));
         writeFile(rslPath, listPaths);
     }
 
-    private static Predicate<Path> choosePredicate(String type, String name) {
-        Predicate<Path> condition = null;
-        if (type.equals("name")) {
-            condition = p -> p.toFile().getName().equals(name);
-        }
-        if (type.equals("mask")) {
-            condition = p -> p.toFile().getName().endsWith(name);
-        }
-        if (type.equals("regex")) {
-            condition = p -> p.toFile().getName().matches(name);
-        }
-        return condition;
+    private static Pattern choosePattern(String type, String name) {
+        String strFileFind = switch (type) {
+            case "name" -> strFileFind = "^" + name + "$";
+            case "mask" -> strFileFind = name.replace("*", ".+").replace("?", ".{1}");
+            case "regex" -> strFileFind = name;
+            default -> throw new IllegalStateException("Неправильный ключ поиска" + name);
+        };
+        return Pattern.compile(strFileFind);
     }
 
     private static void writeFile(String path, List<Path> list) {
