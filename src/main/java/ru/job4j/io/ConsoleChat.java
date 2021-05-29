@@ -47,7 +47,7 @@ public class ConsoleChat {
 
     private void fileWrite(List<String> list) {
         try (PrintWriter out = new PrintWriter(path, Charset.forName("UTF-8"))) {
-            log.forEach(out::println);
+            list.forEach(out::println);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

@@ -1,5 +1,6 @@
 package ru.job4j.io;
 
+import java.io.FileFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,6 +21,7 @@ public class Search {
         }
 
         search(start, p -> p.toFile().getName().endsWith(pred)).forEach(System.out::println);
+
     }
 
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
