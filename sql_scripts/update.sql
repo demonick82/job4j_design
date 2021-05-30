@@ -1,0 +1,1 @@
+update persons set name= 'Сергей';
