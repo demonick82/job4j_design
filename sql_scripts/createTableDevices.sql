@@ -1,4 +1,4 @@
-create table devices(
+create table  devices(
     id serial primary key,
     name varchar(255),
     price float
