@@ -1,1 +1,1 @@
-delete  from  persons;
+delete from persons;
