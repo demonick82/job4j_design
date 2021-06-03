@@ -1,0 +1,1 @@
+select n1.name as a, n2.name as b from teens n1 cross join teens n2 where n1.gender!=n2.gender;
