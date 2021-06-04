@@ -14,7 +14,11 @@ t.name as Категория from product as p join type t on p.type_id=t.id
 where current_date>p.expired_date
 
 --4. Написать запрос, который выводит самый дорогой продукт.
-select max(price) from product;
+select name, price from product
+	where price=(
+	select max (price)
+		from product
+);
 
 --5. Написать запрос, который выводит для каждого типа количество продуктов к нему принадлежащих. В виде имя_типа, количество
 select t.name as Категория, 
