@@ -2,8 +2,7 @@ package ru.job4j.collection.statistics;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -11,13 +10,68 @@ import static org.junit.Assert.assertThat;
 public class AnalizeTest {
 
     @Test
-    public void when1Add2Changed2Deleted() {
-        List<User> previous = new ArrayList<>(List.of(new User(1, "Dmitriy"), new User(2, "Olga"),
-                new User(3, "Sergey"), new User(4, "Tatiana"), new User(6, "Aleksandr")));
-        List<User> current = new ArrayList<>(List.of(new User(1, "Dmitriy"), new User(2, "Ekaterina"),
-                new User(3, "Grigoriy"), new User(5, "Andrey")));
-        Analize analize = new Analize();
-        Info excepted = new Info(1, 2, 2);
-        assertThat(excepted, is(analize.diff(previous, current)));
+    public void whenNotChanged() {
+        User u1 = new User(1, "A");
+        User u2 = new User(2, "B");
+        User u3 = new User(3, "C");
+        Set<User> previous = Set.of(u1, u2, u3);
+        Set<User> current = Set.of(u1, u2, u3);
+        assertThat(
+                Analize.diff(previous, current),
+                is(new Info(0, 0, 0))
+        );
     }
+
+    @Test
+    public void whenOneChanged() {
+        User u1 = new User(1, "A");
+        User u2 = new User(2, "B");
+        User u3 = new User(3, "C");
+        Set<User> previous = Set.of(u1, u2, u3);
+        Set<User> current = Set.of(u1, new User(2, "BB"), u3);
+        assertThat(
+                Analize.diff(previous, current),
+                is(new Info(0, 1, 0))
+        );
+    }
+
+    @Test
+    public void whenOneDeleted() {
+        User u1 = new User(1, "A");
+        User u2 = new User(2, "B");
+        User u3 = new User(3, "C");
+        Set<User> previous = Set.of(u1, u2, u3);
+        Set<User> current = Set.of(u1, u3);
+        assertThat(
+                Analize.diff(previous, current),
+                is(new Info(0, 0, 1))
+        );
+    }
+
+    @Test
+    public void whenOneAdded() {
+        User u1 = new User(1, "A");
+        User u2 = new User(2, "B");
+        User u3 = new User(3, "C");
+        Set<User> previous = Set.of(u1, u2, u3);
+        Set<User> current = Set.of(u1, u2, u3, new User(4, "D"));
+        assertThat(
+                Analize.diff(previous, current),
+                is(new Info(1, 0, 0))
+        );
+    }
+
+    @Test
+    public void whenAllChanged() {
+        User u1 = new User(1, "A");
+        User u2 = new User(2, "B");
+        User u3 = new User(3, "C");
+        Set<User> previous = Set.of(u1, u2, u3);
+        Set<User> current = Set.of(new User(1, "AA"), u2, new User(4, "D"));
+        assertThat(
+                Analize.diff(previous, current),
+                is(new Info(1, 1, 1))
+        );
+    }
+
 }

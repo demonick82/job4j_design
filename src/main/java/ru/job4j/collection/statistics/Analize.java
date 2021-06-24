@@ -1,20 +1,22 @@
 package ru.job4j.collection.statistics;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Analize {
-    public Info diff(List<User> previous, List<User> current) {
-        Map<Integer, String> currentMap = current.stream().
-                collect(Collectors.toMap(User::getId, User::getName));
+    public static Info diff(Set<User> previous, Set<User> current) {
+        Map<Integer, User> currentMap = current.stream().
+                collect(Collectors.toMap(User::getId, user -> user));
+
         int changed = 0;
         int deleted = 0;
-        for (User user : previous) {
-            if ((currentMap.containsKey(user.getId())) && !currentMap.containsValue(user.getName())) {
-                changed++;
-            } else if (!currentMap.containsKey(user.getId())) {
+        for (User prevUser : previous) {
+            User currUser = currentMap.get(prevUser.getId());
+            if (currUser == null) {
                 deleted++;
+            } else if (!currUser.equals(prevUser)) {
+                changed++;
             }
         }
         int add = currentMap.size() - previous.size() + deleted;
