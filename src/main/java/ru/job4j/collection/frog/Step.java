@@ -2,27 +2,31 @@ package ru.job4j.collection.frog;
 
 import java.util.Objects;
 
-public class Step {
+public class Step implements Comparable<Step> {
     private int x;
     private int y;
     private int number;
-    private int step;
+    private int minStep;
 
-    public Step(Step step, int deltaX, int deltaY, int number, int stp) {
+
+    public Step(Step step, int deltaX, int deltaY, int number) {
         x = step.getX() + deltaX;
         if (x > 16) {
             x = x - 16;
         }
         y = step.getY() + deltaY;
         this.number = number;
-        this.step = stp;
     }
+
 
     public Step(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
+    public void setMinStep(int minStep) {
+        this.minStep = minStep;
+    }
 
     public int getX() {
         return x;
@@ -30,6 +34,10 @@ public class Step {
 
     public int getY() {
         return y;
+    }
+
+    public int getMinStep() {
+        return minStep;
     }
 
     @Override
@@ -56,7 +64,17 @@ public class Step {
                 + "x=" + x
                 + ", y=" + y
                 + " ,n" + number
-                + " step" + step
+                + " ,minDist" + minStep
+
                 + '}';
+    }
+
+
+    @Override
+    public int compareTo(Step o) {
+        if (this.minStep == o.minStep) {
+            return 1;
+        }
+        return this.minStep - o.minStep;
     }
 }
