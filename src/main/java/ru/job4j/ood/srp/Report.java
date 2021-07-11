@@ -1,9 +1,8 @@
 package ru.job4j.ood.srp;
 
-import java.util.List;
+import java.util.Comparator;
+import java.util.function.Predicate;
 
 public interface Report {
-    List<String> load(String path);
-    List<String> validate(List<String> data);
-    void save(List<String> data, String path);
+    String generate(Predicate<Employee> filter);
 }
