@@ -1,10 +1,20 @@
 package ru.job4j.ood.srp;
 
+import java.io.StringWriter;
 import java.util.Calendar;
+
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.junit.Test;
+import ru.job4j.ood.ocp.ReportJson;
+import ru.job4j.ood.ocp.ReportXml;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
 public class ReportEngineTest {
     @Test
@@ -122,4 +132,49 @@ public class ReportEngineTest {
         assertThat(engine.generate(em -> true), is(expect.toString()));
     }
 
+    @Test
+    public void whenGsonGenerated() {
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        Employee worker2 = new Employee("Pavel", now, now, 60);
+        Employee worker = new Employee("Ivan", now, now, 100);
+        Employee worker1 = new Employee("Sergey", now, now, 80);
+        store.add(worker2);
+        store.add(worker);
+        store.add(worker1);
+        Report engine = new ReportJson(store);
+        StringBuilder expect = new StringBuilder();
+        Gson gson = new GsonBuilder().create();
+        for (Employee em : store.findBy(employee -> true)) {
+            expect.append(gson.toJson(em))
+                    .append(System.lineSeparator());
+        }
+        assertThat(engine.generate(em -> true), is(expect.toString()));
+    }
+
+    @Test
+    public void whenXmlGenerated() {
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        Employee worker2 = new Employee("Pavel", now, now, 60);
+        Employee worker = new Employee("Ivan", now, now, 100);
+        Employee worker1 = new Employee("Sergey", now, now, 80);
+        store.add(worker2);
+        store.add(worker);
+        store.add(worker1);
+        Report engine = new ReportXml(store);
+        StringWriter expect = new StringWriter();
+        for (Employee em : store.findBy(employee -> true)) {
+            try {
+                JAXBContext context = JAXBContext.newInstance(Employee.class);
+                Marshaller marshaller = context.createMarshaller();
+                marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+                marshaller.marshal(em, expect);
+            } catch (JAXBException e) {
+                e.printStackTrace();
+            }
+        }
+        assertThat(engine.generate(employee -> true), is(expect.toString()));
+
+    }
 }
