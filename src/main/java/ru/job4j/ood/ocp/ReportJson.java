@@ -18,11 +18,10 @@ public class ReportJson implements Report {
     @Override
     public String generate(Predicate<Employee> filter) {
         Gson gson = new GsonBuilder().create();
-        StringBuilder text = new StringBuilder();
+        Employees employees = new Employees();
         for (Employee em : store.findBy(employee -> true)) {
-            text.append(gson.toJson(em))
-                    .append(System.lineSeparator());
+            employees.add(em);
         }
-        return text.toString();
+        return gson.toJson(employees);
     }
 }

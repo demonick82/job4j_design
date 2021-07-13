@@ -9,6 +9,7 @@ import static org.hamcrest.Matchers.is;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.junit.Test;
+import ru.job4j.ood.ocp.Employees;
 import ru.job4j.ood.ocp.ReportJson;
 import ru.job4j.ood.ocp.ReportXml;
 
@@ -143,13 +144,12 @@ public class ReportEngineTest {
         store.add(worker);
         store.add(worker1);
         Report engine = new ReportJson(store);
-        StringBuilder expect = new StringBuilder();
-        Gson gson = new GsonBuilder().create();
+        Gson expect = new GsonBuilder().create();
+        Employees employees = new Employees();
         for (Employee em : store.findBy(employee -> true)) {
-            expect.append(gson.toJson(em))
-                    .append(System.lineSeparator());
+            employees.add(em);
         }
-        assertThat(engine.generate(em -> true), is(expect.toString()));
+        assertThat(engine.generate(em -> true), is(expect.toJson(employees)));
     }
 
     @Test
@@ -164,16 +164,20 @@ public class ReportEngineTest {
         store.add(worker1);
         Report engine = new ReportXml(store);
         StringWriter expect = new StringWriter();
+        Employees employees = new Employees();
+
         for (Employee em : store.findBy(employee -> true)) {
-            try {
-                JAXBContext context = JAXBContext.newInstance(Employee.class);
-                Marshaller marshaller = context.createMarshaller();
-                marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-                marshaller.marshal(em, expect);
-            } catch (JAXBException e) {
-                e.printStackTrace();
-            }
+            employees.add(em);
         }
+        try {
+            JAXBContext context = JAXBContext.newInstance(Employees.class, Employee.class);
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            marshaller.marshal(employees, expect);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+
         assertThat(engine.generate(employee -> true), is(expect.toString()));
 
     }
