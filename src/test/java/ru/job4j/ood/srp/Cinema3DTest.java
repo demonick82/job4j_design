@@ -1,9 +1,10 @@
-package ru.job4j.tdd;
+package ru.job4j.ood.srp;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.is;
 
 import org.junit.Test;
+import ru.job4j.ood.tdd.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;

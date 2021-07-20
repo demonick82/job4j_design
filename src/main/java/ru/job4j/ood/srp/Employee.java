@@ -2,6 +2,7 @@ package ru.job4j.ood.srp;
 
 import java.util.Calendar;
 import java.util.Objects;
+
 public class Employee {
     private String name;
     private Calendar hired;
