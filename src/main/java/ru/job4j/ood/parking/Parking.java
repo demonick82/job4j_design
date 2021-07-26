@@ -1,6 +1,6 @@
 package ru.job4j.ood.parking;
 
 public interface Parking {
-    void getParkingPosition(Car car);
+    int getParkingFreeSpace();
     boolean canPark(Car car);
 }
