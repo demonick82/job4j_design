@@ -1,4 +1,4 @@
-package ru.job4j.dip;
+package ru.job4j.ood.dip;
 
 import java.util.HashMap;
 import java.util.HashSet;

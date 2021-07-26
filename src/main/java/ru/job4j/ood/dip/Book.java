@@ -1,4 +1,4 @@
-package ru.job4j.dip;
+package ru.job4j.ood.dip;
 
 
 public class Book {
