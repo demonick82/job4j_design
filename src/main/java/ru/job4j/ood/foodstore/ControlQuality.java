@@ -21,6 +21,15 @@ public class ControlQuality {
         }
     }
 
+    public void resort() {
+        for (Store store : storage) {
+            for (Food food : store.getAndClear()) {
+                redistribute(food);
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
         List<Store> stores = List.of(new Shop(), new Warehouse(), new Trash());
         ControlQuality controlQuality = new ControlQuality(stores);
@@ -43,7 +52,6 @@ public class ControlQuality {
         controlQuality.redistribute(cheese);
         controlQuality.redistribute(cheese2);
         controlQuality.redistribute(pasta);
-
-
+        controlQuality.resort();
     }
 }
