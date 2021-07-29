@@ -1,6 +1,10 @@
 package ru.job4j.ood.parking;
 
+import ru.job4j.ood.parking.models.Car;
+
+import java.util.List;
+
 public interface Parking {
-    int getParkingFreeSpace();
+    List<Car> getCarOnParking();
     boolean canPark(Car car);
 }

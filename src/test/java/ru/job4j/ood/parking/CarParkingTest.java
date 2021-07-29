@@ -1,6 +1,9 @@
 package ru.job4j.ood.parking;
 
 import org.junit.Test;
+import ru.job4j.ood.parking.models.Car;
+import ru.job4j.ood.parking.models.PassengerCar;
+import ru.job4j.ood.parking.models.Truck;
 
 import static org.junit.Assert.*;
 
