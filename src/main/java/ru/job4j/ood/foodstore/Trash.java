@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Trash implements Store {
-    List<Food> store = new ArrayList<>();
+    private List<Food> store = new ArrayList<>();
 
     @Override
     public void add(Food food) {
@@ -20,4 +20,13 @@ public class Trash implements Store {
         }
         return rsl;
     }
+
+    @Override
+    public List<Food> getAndClear() {
+        List<Food> resort = new ArrayList<>(store);
+        store.clear();
+        return resort;
+    }
+
+
 }
