@@ -25,14 +25,14 @@ public class CarParking implements Parking {
     @Override
     public boolean canPark(Car car) {
         boolean rsl = false;
-        if (car.getClass() == PassengerCar.class) {
+        if (car.getSize() == 1) {
             if (carPoints > 0) {
                 carPoints = carPoints - 1;
                 cars.add(car);
                 rsl = true;
             }
         }
-        if (car.getClass() == Truck.class) {
+        if (car.getSize() > 1) {
             if (truckPoint > 0) {
                 truckPoint = truckPoint - 1;
                 cars.add(car);
