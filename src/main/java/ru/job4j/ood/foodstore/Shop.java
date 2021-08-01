@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Shop implements Store {
-    List<Food> store = new ArrayList<>();
+    private List<Food> store = new ArrayList<>();
 
     @Override
     public void add(Food food) {
@@ -27,6 +27,14 @@ public class Shop implements Store {
         }
         return rsl;
     }
+
+    @Override
+    public List<Food> getAndClear() {
+        List<Food> resort = new ArrayList<>(store);
+        store.clear();
+        return resort;
+    }
+
 
     private double priceWithDiscount(double price, double discount) {
         return price * (1 - discount / 100);

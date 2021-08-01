@@ -3,6 +3,7 @@ package ru.job4j.ood.foodstore;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControlQuality {
@@ -22,13 +23,14 @@ public class ControlQuality {
     }
 
     public void resort() {
+        List<Food> resortList = new ArrayList<>();
         for (Store store : storage) {
-            for (Food food : store.getAndClear()) {
-                redistribute(food);
-            }
+            resortList.addAll(store.getAndClear());
+        }
+        for (Food food : resortList) {
+            redistribute(food);
         }
     }
-
 
     public static void main(String[] args) {
         List<Store> stores = List.of(new Shop(), new Warehouse(), new Trash());

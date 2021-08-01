@@ -27,6 +27,4 @@ public class Trash implements Store {
         store.clear();
         return resort;
     }
-
-
 }
